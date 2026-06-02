@@ -4,6 +4,8 @@ local TeleportService = game:GetService("TeleportService")
 local Players = game:GetService("Players")
 local GuiService = game:GetService("GuiService")
 local LocalPlayer = Players.LocalPlayer
+
+-- Pastikan PlayerGui sudah termuat sempurna di dalam game
 local PlayerGui = LocalPlayer:WaitForChild("PlayerGui", 10)
 if not PlayerGui then return end
 
@@ -33,8 +35,8 @@ end
 -- ========================================================
 -- SISTEM AUTO-SAVE LINK (MEMBACA DATA TERAKHIR YANG DISIMPAN)
 -- ========================================================
-local FileName = "GrowAGarden_VIPLink.txt"
-local PrivateServerLink = "https://roblox.com" -- Link bawaan
+local FileName = "KyzerHub"
+local PrivateServerLink = "paste link" -- Link bawaan
 
 if readfile and isfile and isfile(FileName) then
     PrivateServerLink = readfile(FileName)
@@ -80,7 +82,6 @@ Frame.BackgroundColor3 = Color3.fromRGB(25, 25, 35) -- Biru gelap mewah
 Frame.BorderSizePixel = 0
 Frame.Visible = false -- Menunggu ikon diklik baru muncul
 Frame.Active = true
-Frame.Draggable = true -- UI bisa digeser manual sesuai kenyamanan layar
 Frame.Parent = ScreenGui
 
 local UICorner = Instance.new("UICorner")
@@ -89,7 +90,7 @@ UICorner.Parent = Frame
 
 local Title = Instance.new("TextLabel")
 Title.Size = UDim2.new(1, 0, 0, 30)
-Title.Text = "⚡ KYZER HUB VIP REJOIN"
+Title.Text = "⚡ KYZER HUB"
 Title.TextColor3 = Color3.fromRGB(255, 255, 255)
 Title.TextSize = 13
 Title.Font = Enum.Font.SourceSansBold
@@ -270,9 +271,33 @@ LinkBox.FocusLost:Connect(function()
     end
 end)
 
+-- ========================================================
+-- PERBAIKAN STRUKTUR SINTAKS KEDUA TOMBOL LISTENER (UNTUK KELUAR KOLOM)
+-- ========================================================
+-- LOGIKA INPUT MENIT (KOTAK TEKS)
+-- ========================================================
 TextBox.FocusLost:Connect(function()
     local num = tonumber(TextBox.Text)
     if num and num > 0 then
         rejoinMinutes = num
         timeLeft = rejoinMinutes * 60
-elseTextBox.Text = tostring(rejoinMinutes)endend)ToggleBtn.MouseButton1Click:Connect(function()isEnabled = not isEnabledif isEnabled thenToggleBtn.Text = "AUTO REJOIN: AKTIF"ToggleBtn.BackgroundColor3 = Color3.fromRGB(46, 204, 113)timeLeft = rejoinMinutes * 60elseToggleBtn.Text = "AUTO REJOIN: JEDA"ToggleBtn.BackgroundColor3 = Color3.fromRGB(231, 76, 60)endend)
+    else
+        TextBox.Text = tostring(rejoinMinutes)
+    end
+end)
+
+-- ========================================================
+-- LOGIKA TOMBOL TOGGLE AKTIF / JEDA (BERDIRI SENDIRI)
+-- ========================================================
+ToggleBtn.MouseButton1Click:Connect(function()
+    isEnabled = not isEnabled
+    if isEnabled then
+        ToggleBtn.Text = "AUTO REJOIN: AKTIF"
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(46, 204, 113) -- Warna Hijau
+        timeLeft = rejoinMinutes * 60
+    else
+        ToggleBtn.Text = "AUTO REJOIN: JEDA"
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(231, 76, 60)   -- Warna Merah
+        timeLeft = rejoinMinutes * 60
+    end
+end)

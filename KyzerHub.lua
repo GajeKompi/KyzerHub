@@ -18,7 +18,7 @@ if PlayerGui:FindFirstChild("AntiStuckRejoinUI") then PlayerGui.AntiStuckRejoinU
 local LogoLocalName = "Kyzerlogo.jpg"
 local LogoAssetID = "rbxassetid://0" -- Cadangan jika fitur tidak didukung executor
 
-local RawGithubLogoUrl = "https://githubusercontent.com"
+local RawGithubLogoUrl = "https://raw.githubusercontent.com/GajeKompi/KyzerHub/main/Kyzerlogo.png"
 
 if writefile and readfile and getcustomasset and isfile then
     pcall(function()

@@ -15,7 +15,7 @@ if PlayerGui:FindFirstChild("AntiStuckRejoinUI") then PlayerGui.AntiStuckRejoinU
 -- ========================================================
 -- SISTEM DOWNLOAD & PEMBACAAN LOGO OTOMATIS DARI GITHUB
 -- ========================================================
-local LogoLocalName = "Kyzerlogo.jpg"
+local LogoLocalName = "Kyzerlogo.png"
 local LogoAssetID = "rbxassetid://0" -- Cadangan jika fitur tidak didukung executor
 
 local RawGithubLogoUrl = "https://raw.githubusercontent.com/GajeKompi/KyzerHub/main/Kyzerlogo.png"

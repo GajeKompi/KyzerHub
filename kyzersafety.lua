@@ -20,6 +20,7 @@ local WhitelistUsernames = {
     ["handukbasah140"] = true,
     ["sepuhhhhqil4"] = true,
     ["handukbasah143"] = true,
+    ["ilalskie9"] = true,
     ["fessca_0"] = true   
 }
 

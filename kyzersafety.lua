@@ -16,7 +16,7 @@ if game.PlaceId ~= TargetPlaceId then
 end
 
 local WhitelistUsernames = {
-    ["Handukbasah142"] = true,
+    ["handukbasah142"] = true,
     ["handukbasah140"] = true,
     ["sepuhhhhqil4"] = true,
     ["handukbasah143"] = true,

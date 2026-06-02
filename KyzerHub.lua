@@ -13,29 +13,9 @@ if not PlayerGui then return end
 if PlayerGui:FindFirstChild("AntiStuckRejoinUI") then PlayerGui.AntiStuckRejoinUI:Destroy() end
 
 -- ========================================================
--- SISTEM DOWNLOAD & PEMBACAAN LOGO OTOMATIS DARI GITHUB
--- ========================================================
-local LogoLocalName = "Kyzerlogo.png"
-local LogoAssetID = "rbxassetid://0" -- Cadangan jika fitur tidak didukung executor
-
-local RawGithubLogoUrl = "https://raw.githubusercontent.com/GajeKompi/KyzerHub/main/Kyzerlogo.png"
-
-if writefile and readfile and getcustomasset and isfile then
-    pcall(function()
-        -- Jika file logo belum ada di folder workspace executor, unduh otomatis dari GitHub Anda
-        if not isfile(LogoLocalName) then
-            local downloadImage = game:HttpGet(RawGithubLogoUrl)
-            writefile(LogoLocalName, downloadImage)
-        end
-        -- Mengubah file lokal menjadi aset yang dikenali oleh engine gambar Roblox
-        LogoAssetID = getcustomasset(LogoLocalName)
-    end)
-end
-
--- ========================================================
 -- SISTEM AUTO-SAVE LINK (MEMBACA DATA TERAKHIR YANG DISIMPAN)
 -- ========================================================
-local FileName = "KyzerHub"
+local FileName = "KyzerHub_VIPLink.txt"
 local PrivateServerLink = "paste link" -- Link bawaan
 
 if readfile and isfile and isfile(FileName) then
@@ -53,14 +33,17 @@ ScreenGui.ResetOnSpawn = false
 ScreenGui.Parent = PlayerGui
 
 -- ========================================================
--- 1. TOMBOL IKON LOGO KYZERHUB (Bulat Kecil di Pojok Layar)
+-- 1. TOMBOL IKON HURUF "K" NEON (Bulat Kecil di Pojok Layar)
 -- ========================================================
-local IconButton = Instance.new("ImageButton")
-IconButton.Size = UDim2.new(0, 55, 0, 55)
-IconButton.Position = UDim2.new(0.02, 0, 0.2, 0) -- Di kiri atas layar agar tidak menghalangi analog HP
+local IconButton = Instance.new("TextButton") -- Diubah menjadi TextButton agar bisa menampilkan huruf K
+IconButton.Size = UDim2.new(0, 50, 0, 50)
+IconButton.Position = UDim2.new(0.02, 0, 0.2, 0) -- Di kiri atas layar agar rapi
 IconButton.BackgroundColor3 = Color3.fromRGB(20, 20, 25)
 IconButton.BorderSizePixel = 0
-IconButton.Image = LogoAssetID
+IconButton.Text = "K" -- Menampilkan huruf K saja
+IconButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+IconButton.TextSize = 24
+IconButton.Font = Enum.Font.SourceSansBold
 IconButton.Parent = ScreenGui
 
 local IconCorner = Instance.new("UICorner")
@@ -68,8 +51,8 @@ IconCorner.CornerRadius = UDim.new(1, 0) -- Membuat bulatan sempurna
 IconCorner.Parent = IconButton
 
 local IconStroke = Instance.new("UIStroke")
-IconStroke.Color = Color3.fromRGB(0, 255, 255) -- Garis luar neon biru cyan mengikuti tema logo K
-IconStroke.Thickness = 2
+IconStroke.Color = Color3.fromRGB(0, 255, 255) -- Garis luar neon biru cyan cerah
+IconStroke.Thickness = 2.5
 IconStroke.Parent = IconButton
 
 -- ========================================================
@@ -123,7 +106,7 @@ local Countdown = Instance.new("TextLabel")
 Countdown.Size = UDim2.new(1, -20, 0, 20)
 Countdown.Position = UDim2.new(0, 10, 0, 75)
 Countdown.Text = "Rejoin Dalam: 15m 00s"
-Countdown.TextColor3 = Color3.fromRGB(0, 255, 255)
+Countdown.CountdownTextColor3 = Color3.fromRGB(0, 255, 255)
 Countdown.TextSize = 14
 Countdown.Font = Enum.Font.SourceSansBold
 Countdown.TextXAlignment = Enum.TextXAlignment.Left
@@ -201,7 +184,7 @@ local BtnCorner = Instance.new("UICorner")
 BtnCorner.CornerRadius = UDim.new(0, 5)
 BtnCorner.Parent = ToggleBtn
 
--- Klik Ikon untuk Toggle Membuka / Menutup Jendela Menu Utama
+-- Klik Ikon "K" untuk Membuka / Menutup Jendela Menu Utama
 IconButton.MouseButton1Click:Connect(function()
     Frame.Visible = not Frame.Visible
 end)
@@ -211,7 +194,7 @@ local function doTeleport()
     local input = LinkBox.Text
     local shareCode = input:match("code=([^&]+)") or input
     
-    if not shareCode or shareCode == "" then
+    if not shareCode or shareCode == "" or shareCode == "paste link" then
         Countdown.Text = "Error: Link Tidak Valid!"
         return
     end
@@ -259,7 +242,7 @@ end)
 
 -- Simpan otomatis link baru yang diketik ke memori internal file executor
 LinkBox.FocusLost:Connect(function()
-    if LinkBox.Text ~= "" then
+    if LinkBox.Text ~= "" and LinkBox.Text ~= "paste link" then
         PrivateServerLink = LinkBox.Text
         if writefile then
             pcall(function()
@@ -271,11 +254,6 @@ LinkBox.FocusLost:Connect(function()
     end
 end)
 
--- ========================================================
--- PERBAIKAN STRUKTUR SINTAKS KEDUA TOMBOL LISTENER (UNTUK KELUAR KOLOM)
--- ========================================================
--- LOGIKA INPUT MENIT (KOTAK TEKS)
--- ========================================================
 TextBox.FocusLost:Connect(function()
     local num = tonumber(TextBox.Text)
     if num and num > 0 then
@@ -286,18 +264,15 @@ TextBox.FocusLost:Connect(function()
     end
 end)
 
--- ========================================================
--- LOGIKA TOMBOL TOGGLE AKTIF / JEDA (BERDIRI SENDIRI)
--- ========================================================
 ToggleBtn.MouseButton1Click:Connect(function()
     isEnabled = not isEnabled
     if isEnabled then
         ToggleBtn.Text = "AUTO REJOIN: AKTIF"
-        ToggleBtn.BackgroundColor3 = Color3.fromRGB(46, 204, 113) -- Warna Hijau
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(46, 204, 113)
         timeLeft = rejoinMinutes * 60
     else
         ToggleBtn.Text = "AUTO REJOIN: JEDA"
-        ToggleBtn.BackgroundColor3 = Color3.fromRGB(231, 76, 60)   -- Warna Merah
+        ToggleBtn.BackgroundColor3 = Color3.fromRGB(231, 76, 60)
         timeLeft = rejoinMinutes * 60
     end
 end)

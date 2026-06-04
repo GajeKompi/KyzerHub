@@ -265,7 +265,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
 
     local PopStroke = Instance.new("UIStroke")
     PopStroke.Thickness = 1.5
-    PopStroke.Color = Color3.fromRGB(255, 30, 30)
+    PopStroke.Color = Color3.fromRGB(255, 30, 30) -- Merah Kyzer Hub
     PopStroke.Parent = PopupFrame
 
     local PopTitle = Instance.new("TextLabel")
@@ -323,7 +323,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
 
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Padding = UDim.new(0, 6)
-    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder -- Menggunakan pengurutan LayoutOrder secara vertikal
     ListLayout.Parent = ScrollList
 
     local ButtonsCache = {}
@@ -336,6 +336,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
         ItemBtn.TextSize = 13
         ItemBtn.Font = Enum.Font.GothamMedium
         ItemBtn.ZIndex = 12
+        ItemBtn.LayoutOrder = 2 -- Default awal di bawah (Urutan ke-2)
         ItemBtn.Parent = ScrollList
         
         local ICorner = Instance.new("UICorner")
@@ -345,12 +346,16 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
         ItemBtn.MouseButton1Click:Connect(function()
             ConfigTarget[itemName] = not ConfigTarget[itemName]
             if ConfigTarget[itemName] then
-               ItemBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 30)
-                ItemBtn.TextColor3 = Color3.fromRGB(15, 15, 15)
+                ItemBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 30) -- Merah Kyzer Hub
+                ItemBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                ItemBtn.LayoutOrder = 1 -- Mengubah urutan ke-1 agar naik ke atas
             else
                 ItemBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
                 ItemBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
+                ItemBtn.LayoutOrder = 2 -- Kembali menjadi 2 agar turun ke bawah
             end
+            -- Reset canvas scrolling posisi teratas secara mulus pasca klik
+            ScrollList.CanvasPosition = Vector2.new(0, 0)
         end)
 
         ButtonsCache[itemName] = ItemBtn

@@ -4,11 +4,11 @@ local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 
 -- Bersihkan UI lama jika dieksekusi ulang agar tidak menumpuk
-if CoreGui:FindFirstChild("NodeHub_CustomUI") then CoreGui["NodeHub_CustomUI"]:Destroy() end
-if CoreGui:FindFirstChild("NodeHub_MinimizeIcon") then CoreGui["NodeHub_MinimizeIcon"]:Destroy() end
+if CoreGui:FindFirstChild("KyzerHub_CustomUI") then CoreGui["KyzerHub_CustomUI"]:Destroy() end
+if CoreGui:FindFirstChild("KyzerHub_MinimizeIcon") then CoreGui["KyzerHub_MinimizeIcon"]:Destroy() end
 
 local UI = Instance.new("ScreenGui")
-UI.Name = "NodeHub_CustomUI"
+UI.Name = "KyzerHub_CustomUI"
 UI.ResetOnSpawn = false
 UI.DisplayOrder = 99
 UI.Parent = CoreGui
@@ -68,7 +68,7 @@ HeaderFrame.Parent = MainFrame
 local TitleLabel = Instance.new("TextLabel")
 TitleLabel.Size = UDim2.new(0.8, 0, 1, 0)
 TitleLabel.Position = UDim2.fromOffset(15, 0)
-TitleLabel.Text = "⚡ | NODE HUB V1.23"
+TitleLabel.Text = "Ӄ | Kyzer HUB V1.23"
 TitleLabel.TextColor3 = Color3.fromRGB(254, 203, 0)
 TitleLabel.TextSize = 18
 TitleLabel.Font = Enum.Font.GothamBold
@@ -386,7 +386,7 @@ OpenMutMenuBtn.MouseButton1Click:Connect(function() PetPopupFrame.Visible = fals
 
 -- [[ TOMBOL MINIMIZE BULAT MENGAMBANG ]]
 local MinimizeIcon = Instance.new("ImageButton")
-MinimizeIcon.Name = "NodeHub_MinimizeIcon"
+MinimizeIcon.Name = "KyzerHub_MinimizeIcon"
 MinimizeIcon.Size = UDim2.fromOffset(60, 60)
 MinimizeIcon.Position = UDim2.new(0.05, 0, 0.4, 0)
 MinimizeIcon.BackgroundColor3 = Color3.fromRGB(20, 20, 20)

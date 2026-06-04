@@ -405,8 +405,8 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
     return PopupFrame
 end
 
-local PetPopupFrame = BuatWindowPopup("Select Pet Type", MasterListPet, Config.SelectedPets)
-local MutPopupFrame = BuatWindowPopup("Whitelist Mutation Filter", MasterListMutasi, Config.WhitelistMutation)
+local PetPopupFrame = BuatWindowPopup("Select Pet Type", MasterListPet, Config.SelectedPets, OpenPetMenuBtn, "Click to select pets...")
+local MutPopupFrame = BuatWindowPopup("Whitelist Mutation Filter", MasterListMutasi, Config.WhitelistMutation, OpenMutMenuBtn, "Click to select mutations...")
 
 OpenPetMenuBtn.MouseButton1Click:Connect(function() MutPopupFrame.Visible = false PetPopupFrame.Visible = true end)
 OpenMutMenuBtn.MouseButton1Click:Connect(function() PetPopupFrame.Visible = false MutPopupFrame.Visible = true end)

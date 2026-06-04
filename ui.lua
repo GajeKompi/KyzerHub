@@ -106,7 +106,7 @@ local TabMiscBtn = Instance.new("TextButton")
 TabMiscBtn.Size = UDim2.new(1, -20, 0, 40)
 TabMiscBtn.Position = UDim2.fromOffset(10, 150)
 TabMiscBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-TabMiscBtn.Text = "MISC"
+TabMiscBtn.Text = "Inventory"
 TabMiscBtn.TextColor3 = Color3.fromRGB(255, 30, 30)
 TabMiscBtn.TextSize = 14
 TabMiscBtn.Font = Enum.Font.GothamBold
@@ -131,21 +131,18 @@ RightPanel.BackgroundTransparency = 1
 RightPanel.Parent = MainFrame
 
 local SubHeaderFake = Instance.new("TextButton")
-SubHeaderFake.Size = UDim2.fromOffset(90, 30)
-SubHeaderFake.Position = UDim2.fromOffset(110, 5)
+SubHeaderFake.Size = UDim2.fromOffset(110, 30) -- Lebar dinaikkan sedikit agar teks tidak sesak
+SubHeaderFake.Position = UDim2.fromOffset(100, 5)
 SubHeaderFake.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-SubHeaderFake.Text = "Auto Favorite"
+SubHeaderFake.Text = "Auto Favorite" -- Mengubah teks dari Auto Gift menjadi Auto Favorite sesuai gambar terbaru
 SubHeaderFake.TextColor3 = Color3.fromRGB(255, 30, 30)
-SubHeaderFake.Font = Enum.Font.GothamBold
+SubHeaderFake.Font = Enum.Font.GothamMedium -- DIUBAH: Dari GothamBold menjadi GothamMedium agar lebih tipis
 SubHeaderFake.TextSize = 12
 SubHeaderFake.Parent = RightPanel
+
 local SubCorner = Instance.new("UICorner")
 SubCorner.CornerRadius = UDim.new(0, 15)
 SubCorner.Parent = SubHeaderFake
-local SubStroke = Instance.new("UIStroke")
-SubStroke.Color = Color3.fromRGB(255, 30, 30)
-SubStroke.Thickness = 1
-SubStroke.Parent = SubHeaderFake
 
 local ToggleFrame = Instance.new("Frame")
 ToggleFrame.Size = UDim2.new(1, 0, 0, 40)

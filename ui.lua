@@ -248,7 +248,7 @@ MOStroke.Color = Color3.fromRGB(40, 40, 40)
 MOStroke.Parent = OpenMutMenuBtn
 
 -- [[ PEMBUATAN POPUP FRAME SELECTION ]]
-local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
+local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemicu, TeksDefault)
     local PopupFrame = Instance.new("Frame")
     PopupFrame.Name = "Popup_" .. JudulWindow
     PopupFrame.Size = UDim2.fromOffset(330, 320)
@@ -289,6 +289,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
     CloseX.Font = Enum.Font.GothamBold
     CloseX.TextSize = 12
     CloseX.ZIndex = 11
+    CloseX.Parent = CloseX
     CloseX.Parent = PopupFrame
     local XCorner = Instance.new("UICorner")
     XCorner.CornerRadius = UDim.new(0, 4)
@@ -323,8 +324,32 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
 
     local ListLayout = Instance.new("UIListLayout")
     ListLayout.Padding = UDim.new(0, 6)
-    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder -- Menggunakan pengurutan LayoutOrder secara vertikal
+    ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ListLayout.Parent = ScrollList
+
+    -- Fungsi Otomatis untuk Memperbarui Teks Tombol Utama Luar
+    local function PerbaruiTeksTombolLuar()
+        local Terpilih = {}
+        for namaItem, aktif in pairs(ConfigTarget) do
+            if aktif then
+                table.insert(Terpilih, namaItem)
+            end
+        end
+        table.sort(Terpilih) -- Biar urutan abjad teksnya rapi
+
+        if #Terpilih > 0 then
+            local teksGabungan = table.concat(Terpilih, ", ")
+            -- Jika teks terlalu panjang, kita potong biar tidak merusak UI luar
+            if string.len(teksGabungan) > 32 then
+                teksGabungan = string.sub(teksGabungan, 1, 30) .. "..."
+            end
+            TombolPemicu.Text = " " .. teksGabungan .. " ▼"
+            TombolPemicu.TextColor3 = Color3.fromRGB(255, 30, 30) -- Berubah jadi merah jika ada isinya
+        else
+            TombolPemicu.Text = " " .. TeksDefault .. " ▼"
+            TombolPemicu.TextColor3 = Color3.fromRGB(200, 200, 200) -- Kembali kelabu jika kosong
+        end
+    end
 
     local ButtonsCache = {}
     for i, itemName in pairs(DaftarItem) do
@@ -336,7 +361,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
         ItemBtn.TextSize = 13
         ItemBtn.Font = Enum.Font.GothamMedium
         ItemBtn.ZIndex = 12
-        ItemBtn.LayoutOrder = 2 -- Default awal di bawah (Urutan ke-2)
+        ItemBtn.LayoutOrder = 2
         ItemBtn.Parent = ScrollList
         
         local ICorner = Instance.new("UICorner")
@@ -346,16 +371,16 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
         ItemBtn.MouseButton1Click:Connect(function()
             ConfigTarget[itemName] = not ConfigTarget[itemName]
             if ConfigTarget[itemName] then
-                ItemBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 30) -- Merah Kyzer Hub
+                ItemBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 30)
                 ItemBtn.TextColor3 = Color3.fromRGB(255, 255, 255)
-                ItemBtn.LayoutOrder = 1 -- Mengubah urutan ke-1 agar naik ke atas
+                ItemBtn.LayoutOrder = 1
             else
                 ItemBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
                 ItemBtn.TextColor3 = Color3.fromRGB(180, 180, 180)
-                ItemBtn.LayoutOrder = 2 -- Kembali menjadi 2 agar turun ke bawah
+                ItemBtn.LayoutOrder = 2
             end
-            -- Reset canvas scrolling posisi teratas secara mulus pasca klik
             ScrollList.CanvasPosition = Vector2.new(0, 0)
+            PerbaruiTeksTombolLuar() -- Panggil fungsi update teks setiap diklik
         end)
 
         ButtonsCache[itemName] = ItemBtn

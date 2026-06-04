@@ -69,7 +69,7 @@ local TitleLabel = Instance.new("TextLabel")
 TitleLabel.Size = UDim2.new(0.8, 0, 1, 0)
 TitleLabel.Position = UDim2.fromOffset(15, 0)
 TitleLabel.Text = "Ӄ | Kyzer HUB V1.23"
-TitleLabel.TextColor3 = Color3.fromRGB(254, 203, 0)
+TitleLabel.TextColor3 = Color3.fromRGB(255, 30, 30)
 TitleLabel.TextSize = 18
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -107,7 +107,7 @@ TabMiscBtn.Size = UDim2.new(1, -20, 0, 40)
 TabMiscBtn.Position = UDim2.fromOffset(10, 150)
 TabMiscBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
 TabMiscBtn.Text = "MISC"
-TabMiscBtn.TextColor3 = Color3.fromRGB(254, 203, 0)
+TabMiscBtn.TextColor3 = Color3.fromRGB(255, 30, 30)
 TabMiscBtn.TextSize = 14
 TabMiscBtn.Font = Enum.Font.GothamBold
 TabMiscBtn.Parent = LeftPanel
@@ -119,7 +119,7 @@ TabCorner.Parent = TabMiscBtn
 local ActiveLine = Instance.new("Frame")
 ActiveLine.Size = UDim2.new(0.6, 0, 0, 2)
 ActiveLine.Position = UDim2.new(0.2, 0, 1, -4)
-ActiveLine.BackgroundColor3 = Color3.fromRGB(254, 203, 0)
+ActiveLine.BackgroundColor3 = Color3.fromRGB(255, 30, 30)
 ActiveLine.BorderSizePixel = 0
 ActiveLine.Parent = TabMiscBtn
 
@@ -134,8 +134,8 @@ local SubHeaderFake = Instance.new("TextButton")
 SubHeaderFake.Size = UDim2.fromOffset(90, 30)
 SubHeaderFake.Position = UDim2.fromOffset(110, 5)
 SubHeaderFake.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-SubHeaderFake.Text = "Auto Gift"
-SubHeaderFake.TextColor3 = Color3.fromRGB(254, 203, 0)
+SubHeaderFake.Text = "Auto Favorite"
+SubHeaderFake.TextColor3 = Color3.fromRGB(255, 30, 30)
 SubHeaderFake.Font = Enum.Font.GothamBold
 SubHeaderFake.TextSize = 12
 SubHeaderFake.Parent = RightPanel
@@ -143,7 +143,7 @@ local SubCorner = Instance.new("UICorner")
 SubCorner.CornerRadius = UDim.new(0, 15)
 SubCorner.Parent = SubHeaderFake
 local SubStroke = Instance.new("UIStroke")
-SubStroke.Color = Color3.fromRGB(254, 203, 0)
+SubStroke.Color = Color3.fromRGB(255, 30, 30)
 SubStroke.Thickness = 1
 SubStroke.Parent = SubHeaderFake
 
@@ -185,7 +185,7 @@ BCorner.Parent = ToggleBall
 ToggleBtn.MouseButton1Click:Connect(function()
     Config.Enable = not Config.Enable
     if Config.Enable then
-        TweenService:Create(ToggleBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(254, 203, 0)}):Play()
+        TweenService:Create(ToggleBtn, TweenInfo.new(0.2), {BackgroundColor3 = Color3.fromRGB(255, 30, 30)}):Play()
         TweenService:Create(ToggleBall, TweenInfo.new(0.2), {Position = UDim2.fromOffset(26, 3), BackgroundColor3 = Color3.fromRGB(255, 255, 255)}):Play()
     else
         table.clear(PetTerprosesSesiIni)
@@ -268,7 +268,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
 
     local PopStroke = Instance.new("UIStroke")
     PopStroke.Thickness = 1.5
-    PopStroke.Color = Color3.fromRGB(254, 203, 0)
+    PopStroke.Color = Color3.fromRGB(255, 30, 30)
     PopStroke.Parent = PopupFrame
 
     local PopTitle = Instance.new("TextLabel")
@@ -348,7 +348,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget)
         ItemBtn.MouseButton1Click:Connect(function()
             ConfigTarget[itemName] = not ConfigTarget[itemName]
             if ConfigTarget[itemName] then
-                ItemBtn.BackgroundColor3 = Color3.fromRGB(254, 203, 0)
+               ItemBtn.BackgroundColor3 = Color3.fromRGB(255, 30, 30)
                 ItemBtn.TextColor3 = Color3.fromRGB(15, 15, 15)
             else
                 ItemBtn.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
@@ -400,7 +400,7 @@ IconCorner.Parent = MinimizeIcon
 
 local IconStroke = Instance.new("UIStroke")
 IconStroke.Thickness = 2
-IconStroke.Color = Color3.fromRGB(254, 203, 0)
+IconStroke.Color = Color3.fromRGB(255, 30, 30)
 IconStroke.Parent = MinimizeIcon
 
 MinButton.MouseButton1Click:Connect(function() MainFrame.Visible = false MinimizeIcon.Visible = true end)

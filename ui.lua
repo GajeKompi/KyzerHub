@@ -1,19 +1,19 @@
--- [[ FILE GITHUB 1: ui.lua ]]
+-- [[ 1. INISIALISASI WADAH UTAMA SCREEN GUI ]]
 local CoreGui = game:GetService("CoreGui")
 local UserInputService = game:GetService("UserInputService")
 local TweenService = game:GetService("TweenService")
 
 -- Bersihkan UI lama jika dieksekusi ulang agar tidak menumpuk
-if CoreGui:FindFirstChild("KyzerHub_CustomUI") then CoreGui["KyzerHub_CustomUI"]:Destroy() end
-if CoreGui:FindFirstChild("KyzerHub_MinimizeIcon") then CoreGui["KyzerHub_MinimizeIcon"]:Destroy() end
+if CoreGui:FindFirstChild("NodeHub_CustomUI") then CoreGui["NodeHub_CustomUI"]:Destroy() end
+if CoreGui:FindFirstChild("NodeHub_MinimizeIcon") then CoreGui["NodeHub_MinimizeIcon"]:Destroy() end
 
 local UI = Instance.new("ScreenGui")
-UI.Name = "KyzerHub_CustomUI"
+UI.Name = "NodeHub_CustomUI"
 UI.ResetOnSpawn = false
 UI.DisplayOrder = 99
 UI.Parent = CoreGui
 
--- [[ DATA CONFIG & DATABASE ]]
+-- [[ 2. DATA CONFIG & DATABASE ]]
 local Config = { SelectedPets = {}, WhitelistMutation = {}, Enable = false }
 local PetTerprosesSesiIni = {}
 
@@ -41,7 +41,7 @@ end
 local MasterListPet = AmbilDaftarPet()
 local MasterListMutasi = AmbilDaftarMutasiOtomatis()
 
--- [[ MEMBUAT FRAME UTAMA (BACKGROUND GELAP) ]]
+-- [[ 3. MEMBUAT FRAME UTAMA (BACKGROUND GELAP) ]]
 local MainFrame = Instance.new("Frame")
 MainFrame.Name = "MainFrame"
 MainFrame.Size = UDim2.fromOffset(580, 420)
@@ -59,7 +59,7 @@ MainStroke.Thickness = 1.5
 MainStroke.Color = Color3.fromRGB(45, 45, 45)
 MainStroke.Parent = MainFrame
 
--- [[ HEADER TITLE ]]
+-- [[ 4. HEADER TITLE ]]
 local HeaderFrame = Instance.new("Frame")
 HeaderFrame.Size = UDim2.new(1, 0, 0, 40)
 HeaderFrame.BackgroundTransparency = 1
@@ -68,8 +68,8 @@ HeaderFrame.Parent = MainFrame
 local TitleLabel = Instance.new("TextLabel")
 TitleLabel.Size = UDim2.new(0.8, 0, 1, 0)
 TitleLabel.Position = UDim2.fromOffset(15, 0)
-TitleLabel.Text = "Ӄ | Kyzer HUB V1.23"
-TitleLabel.TextColor3 = Color3.fromRGB(255, 30, 30)
+TitleLabel.Text = "K | Kyzer HUB V1.23"
+TitleLabel.TextColor3 = Color3.fromRGB(255, 30, 30) -- Merah Kyzer Hub
 TitleLabel.TextSize = 18
 TitleLabel.Font = Enum.Font.GothamBold
 TitleLabel.TextXAlignment = Enum.TextXAlignment.Left
@@ -89,7 +89,7 @@ local MinCorner = Instance.new("UICorner")
 MinCorner.CornerRadius = UDim.new(0, 4)
 MinCorner.Parent = MinButton
 
--- [[ PANEL MENU SEBELAH KIRI ]]
+-- [[ 5. PANEL MENU SEBELAH KIRI ]]
 local LeftPanel = Instance.new("Frame")
 LeftPanel.Size = UDim2.new(0, 150, 1, -40)
 LeftPanel.Position = UDim2.fromOffset(0, 40)
@@ -106,7 +106,7 @@ local TabMiscBtn = Instance.new("TextButton")
 TabMiscBtn.Size = UDim2.new(1, -20, 0, 40)
 TabMiscBtn.Position = UDim2.fromOffset(10, 150)
 TabMiscBtn.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-TabMiscBtn.Text = "Inventory"
+TabMiscBtn.Text = "MISC"
 TabMiscBtn.TextColor3 = Color3.fromRGB(255, 30, 30)
 TabMiscBtn.TextSize = 14
 TabMiscBtn.Font = Enum.Font.GothamBold
@@ -123,7 +123,7 @@ ActiveLine.BackgroundColor3 = Color3.fromRGB(255, 30, 30)
 ActiveLine.BorderSizePixel = 0
 ActiveLine.Parent = TabMiscBtn
 
--- [[ PANEL ISI KONTEN SEBELAH KANAN ]]
+-- [[ 6. PANEL ISI KONTEN SEBELAH KANAN ]]
 local RightPanel = Instance.new("Frame")
 RightPanel.Size = UDim2.new(1, -160, 1, -55)
 RightPanel.Position = UDim2.fromOffset(155, 45)
@@ -131,15 +131,14 @@ RightPanel.BackgroundTransparency = 1
 RightPanel.Parent = MainFrame
 
 local SubHeaderFake = Instance.new("TextButton")
-SubHeaderFake.Size = UDim2.fromOffset(110, 30) -- Lebar dinaikkan sedikit agar teks tidak sesak
+SubHeaderFake.Size = UDim2.fromOffset(110, 30)
 SubHeaderFake.Position = UDim2.fromOffset(100, 5)
 SubHeaderFake.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
-SubHeaderFake.Text = "Auto Favorite" -- Mengubah teks dari Auto Gift menjadi Auto Favorite sesuai gambar terbaru
+SubHeaderFake.Text = "Auto Favorite"
 SubHeaderFake.TextColor3 = Color3.fromRGB(255, 30, 30)
-SubHeaderFake.Font = Enum.Font.GothamMedium -- DIUBAH: Dari GothamBold menjadi GothamMedium agar lebih tipis
+SubHeaderFake.Font = Enum.Font.GothamMedium
 SubHeaderFake.TextSize = 12
 SubHeaderFake.Parent = RightPanel
-
 local SubCorner = Instance.new("UICorner")
 SubCorner.CornerRadius = UDim.new(0, 15)
 SubCorner.Parent = SubHeaderFake
@@ -247,7 +246,7 @@ local MOStroke = Instance.new("UIStroke")
 MOStroke.Color = Color3.fromRGB(40, 40, 40)
 MOStroke.Parent = OpenMutMenuBtn
 
--- [[ PEMBUATAN POPUP FRAME SELECTION ]]
+-- [[ 7. FUNGSI PEMBUATAN POPUP FRAME SELECTION ]]
 local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemicu, TeksDefault)
     local PopupFrame = Instance.new("Frame")
     PopupFrame.Name = "Popup_" .. JudulWindow
@@ -265,7 +264,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
 
     local PopStroke = Instance.new("UIStroke")
     PopStroke.Thickness = 1.5
-    PopStroke.Color = Color3.fromRGB(255, 30, 30) -- Merah Kyzer Hub
+    PopStroke.Color = Color3.fromRGB(255, 30, 30)
     PopStroke.Parent = PopupFrame
 
     local PopTitle = Instance.new("TextLabel")
@@ -289,7 +288,6 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
     CloseX.Font = Enum.Font.GothamBold
     CloseX.TextSize = 12
     CloseX.ZIndex = 11
-    CloseX.Parent = CloseX
     CloseX.Parent = PopupFrame
     local XCorner = Instance.new("UICorner")
     XCorner.CornerRadius = UDim.new(0, 4)
@@ -327,27 +325,23 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
     ListLayout.SortOrder = Enum.SortOrder.LayoutOrder
     ListLayout.Parent = ScrollList
 
-    -- Fungsi Otomatis untuk Memperbarui Teks Tombol Utama Luar
     local function PerbaruiTeksTombolLuar()
         local Terpilih = {}
         for namaItem, aktif in pairs(ConfigTarget) do
-            if aktif then
-                table.insert(Terpilih, namaItem)
-            end
+            if aktif then table.insert(Terpilih, namaItem) end
         end
-        table.sort(Terpilih) -- Biar urutan abjad teksnya rapi
+        table.sort(Terpilih)
 
         if #Terpilih > 0 then
             local teksGabungan = table.concat(Terpilih, ", ")
-            -- Jika teks terlalu panjang, kita potong biar tidak merusak UI luar
             if string.len(teksGabungan) > 32 then
                 teksGabungan = string.sub(teksGabungan, 1, 30) .. "..."
             end
             TombolPemicu.Text = " " .. teksGabungan .. " ▼"
-            TombolPemicu.TextColor3 = Color3.fromRGB(255, 30, 30) -- Berubah jadi merah jika ada isinya
+            TombolPemicu.TextColor3 = Color3.fromRGB(255, 30, 30)
         else
             TombolPemicu.Text = " " .. TeksDefault .. " ▼"
-            TombolPemicu.TextColor3 = Color3.fromRGB(200, 200, 200) -- Kembali kelabu jika kosong
+            TombolPemicu.TextColor3 = Color3.fromRGB(200, 200, 200)
         end
     end
 
@@ -380,7 +374,7 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
                 ItemBtn.LayoutOrder = 2
             end
             ScrollList.CanvasPosition = Vector2.new(0, 0)
-            PerbaruiTeksTombolLuar() -- Panggil fungsi update teks setiap diklik
+            PerbaruiTeksTombolLuar()
         end)
 
         ButtonsCache[itemName] = ItemBtn
@@ -405,15 +399,16 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
     return PopupFrame
 end
 
+-- [[ 8. REGISTRASI POPUP & LISTENERS ]]
 local PetPopupFrame = BuatWindowPopup("Select Pet Type", MasterListPet, Config.SelectedPets, OpenPetMenuBtn, "Click to select pets...")
 local MutPopupFrame = BuatWindowPopup("Whitelist Mutation Filter", MasterListMutasi, Config.WhitelistMutation, OpenMutMenuBtn, "Click to select mutations...")
 
 OpenPetMenuBtn.MouseButton1Click:Connect(function() MutPopupFrame.Visible = false PetPopupFrame.Visible = true end)
 OpenMutMenuBtn.MouseButton1Click:Connect(function() PetPopupFrame.Visible = false MutPopupFrame.Visible = true end)
 
--- [[ TOMBOL MINIMIZE BULAT MENGAMBANG ]]
+-- [[ 9. TOMBOL MINIMIZE BULAT MENGAMBANG ]]
 local MinimizeIcon = Instance.new("ImageButton")
-MinimizeIcon.Name = "KyzerHub_MinimizeIcon"
+MinimizeIcon.Name = "NodeHub_MinimizeIcon"
 MinimizeIcon.Size = UDim2.fromOffset(60, 60)
 MinimizeIcon.Position = UDim2.new(0.05, 0, 0.4, 0)
 MinimizeIcon.BackgroundColor3 = Color3.fromRGB(20, 20, 20)
@@ -433,7 +428,7 @@ IconStroke.Parent = MinimizeIcon
 MinButton.MouseButton1Click:Connect(function() MainFrame.Visible = false MinimizeIcon.Visible = true end)
 MinimizeIcon.MouseButton1Click:Connect(function() MinimizeIcon.Visible = false MainFrame.Visible = true end)
 
--- [[ SISTEM DRAG / GESER FRAME ]]
+-- [[ 10. SISTEM DRAG / GESER FRAME ]]
 local function EnableDrag(WadahObjek)
     local dragging, dragInput, dragStart, startPos
     WadahObjek.InputBegan:Connect(function(input)
@@ -455,7 +450,6 @@ end
 EnableDrag(MainFrame)
 EnableDrag(MinimizeIcon)
 
--- PENGEMBALIAN VARIABEL KE SCRIPT UTAMA
 return {
     Config = Config,
     PetTerprosesSesiIni = PetTerprosesSesiIni,

@@ -247,6 +247,7 @@ MOStroke.Color = Color3.fromRGB(40, 40, 40)
 MOStroke.Parent = OpenMutMenuBtn
 
 -- [[ 7. FUNGSI PEMBUATAN POPUP FRAME SELECTION ]]
+-- [[ 7. FUNGSI PEMBUATAN POPUP FRAME SELECTION DENGAN SISTEM FIX MEMORY RESET ]]
 local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemicu, TeksDefault)
     local PopupFrame = Instance.new("Frame")
     PopupFrame.Name = "Popup_" .. JudulWindow
@@ -380,14 +381,41 @@ local function BuatWindowPopup(JudulWindow, DaftarItem, ConfigTarget, TombolPemi
         ButtonsCache[itemName] = ItemBtn
     end
 
+    -- FUNGSI BARU: Sinkronisasi Visual agar warna tombol tidak ter-reset saat search diganti
+    local function SinkronisasiWarnaDanPosisi()
+        for name, btn in pairs(ButtonsCache) do
+            if ConfigTarget[name] then
+                btn.BackgroundColor3 = Color3.fromRGB(255, 30, 30) -- Tetap Merah
+                btn.TextColor3 = Color3.fromRGB(255, 255, 255)
+                btn.LayoutOrder = 1 -- Tetap di Atas
+            else
+                btn.BackgroundColor3 = Color3.fromRGB(24, 24, 24)
+                btn.TextColor3 = Color3.fromRGB(180, 180, 180)
+                btn.LayoutOrder = 2
+            end
+        end
+    end
+
+    -- Setiap kali teks pencarian berubah, bersihkan visibilitas DAN kunci warnanya sesuai data memori asli
     SearchBox:GetPropertyChangedSignal("Text"):Connect(function()
         local query = string.lower(SearchBox.Text)
+        SinkronisasiWarnaDanPosisi() -- Paksa tombol mempertahankan status memori aslinya
+        
         for name, btn in pairs(ButtonsCache) do
             if query == "" or string.find(string.lower(name), query) then
                 btn.Visible = true
             else
                 btn.Visible = false
             end
+        end
+    end)
+
+    -- Menjaga agar pop-up menyegarkan tampilan visualnya setiap kali jendela dibuka kembali
+    PopupFrame:GetPropertyChangedSignal("Visible"):Connect(function()
+        if PopupFrame.Visible then
+            SearchBox.Text = "" -- Bersihkan kolom ketik saat dibuka ulang
+            SinkronisasiWarnaDanPosisi() -- Sinkronisasikan ulang agar yang tercentang tetap di atas
+            ScrollList.CanvasPosition = Vector2.new(0, 0)
         end
     end)
 
